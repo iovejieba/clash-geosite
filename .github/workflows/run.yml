@@ -80,7 +80,7 @@ jobs:
           echo "GUAXIAO_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/guaxiao.list" >> $GITHUB_ENV
           echo "Crypto_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/Crypto.list" >> $GITHUB_ENV
           echo "EMBY_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/Emby.list" >> $GITHUB_ENV
-          echo "PT_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/Emby.list" >> $GITHUB_ENV
+          echo "PT_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/PrivateTracker.list" >> $GITHUB_ENV
         shell: bash
 
       - name: Checkout Loyalsoldier/domain-list-custom
