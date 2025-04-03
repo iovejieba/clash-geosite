@@ -40,7 +40,7 @@ jobs:
           echo "BING_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Bing.list" >> $GITHUB_ENV
           echo "MS_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.list" >> $GITHUB_ENV
           echo "MSCN_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/MicrosoftCN.list" >> $GITHUB_ENV
-          echo "AD_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/AD.list" >> $GITHUB_ENV
+          echo "NETFLIX_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.list" >> $GITHUB_ENV
           echo "TG_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.list" >> $GITHUB_ENV
           echo "SOCIALMEDIA_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/SocialMedia.list" >> $GITHUB_ENV
           echo "HTTPDNS_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/HTTPDNS.list" >> $GITHUB_ENV
@@ -64,7 +64,7 @@ jobs:
           echo "Talkatone_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Talkatone.list" >> $GITHUB_ENV
           echo "Claude_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Claude.list" >> $GITHUB_ENV
           echo "Twitch_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Twitch.list" >> $GITHUB_ENV
-          echo "PPL_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Perplexity.list" >> $GITHUB_ENV
+          echo "DISNEY_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Disney/Disney.list" >> $GITHUB_ENV
           echo "Huawei_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Huawei.list" >> $GITHUB_ENV
           echo "BD_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Baidu.list" >> $GITHUB_ENV
           echo "Wiki_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Wiki.list" >> $GITHUB_ENV
@@ -216,11 +216,11 @@ jobs:
         run: |
           curl -sSL $GitHub_URL | ${{ env.SED }} > ./community/mydata/github
           
-      - name: Generate ad
+      - name: Generate netflix
         env:
           SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
         run: |
-          curl -sSL $AD_URL | ${{ env.SED }} > ./community/mydata/ad
+          curl -sSL $NETFLIX_URL | ${{ env.SED }} > ./community/mydata/ad
 
       - name: Generate telegram
         env:
@@ -240,11 +240,11 @@ jobs:
         run: |
           curl -sSL $Twitch_URL | ${{ env.SED }} > ./community/mydata/twitch
 
-      - name: Generate perplexity
+      - name: Generate disney
         env:
           SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
         run: |
-          curl -sSL $PPL_URL | ${{ env.SED }} > ./community/mydata/perplexity
+          curl -sSL $DISNEY_URL | ${{ env.SED }} > ./community/mydata/perplexity
 
       - name: Generate huawei
         env:
