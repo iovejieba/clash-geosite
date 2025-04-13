@@ -1,5 +1,5 @@
 
-新增PT GUAXIAO EMBY Cloudflare Crypto SSHOR3389(22+3389)
+新增PT GUAXIAO EMBY(常见公益服-不够完善) Cloudflare Crypto SSHOR3389(22+3389)
 其他标签规则同步上游blackmatrix7更新
 
 ## 致谢
