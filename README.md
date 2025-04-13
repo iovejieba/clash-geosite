@@ -1,3 +1,7 @@
+
+新增PT GUAXIAO EMBY Cloudflare Crypto SSHOR3389(22+3389)
+其他标签规则同步上游blackmatrix7更新
+
 ## 致谢
 
 - [@blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script)
