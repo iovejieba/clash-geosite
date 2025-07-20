@@ -87,6 +87,9 @@ jobs:
           echo "GoogleFCM_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GoogleFCM/GoogleFCM.list" >> $GITHUB_ENV
           echo "ProxyGFWlist_URL=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyGFWlist.list" >> $GITHUB_ENV
           echo "DMM_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Loon/DMM/DMM.list" >> $GITHUB_ENV
+          echo "ChinaMedia_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMedia/ChinaMedia.list" >> $GITHUB_ENV
+          echo "GlobalMedia_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia.list" >> $GITHUB_ENV
+          echo "Steam_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.list" >> $GITHUB_ENV
         
         shell: bash
 
@@ -462,6 +465,24 @@ jobs:
           SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
         run: |
           curl -sSL $DMM_URL | ${{ env.SED }} > ./community/mydata/dmm
+          
+      - name: Generate chinamedia
+        env:
+          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+        run: |
+          curl -sSL $ChinaMedia_URL | ${{ env.SED }} > ./community/mydata/chinamedia
+          
+      - name: Generate globalmedia
+        env:
+          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+        run: |
+          curl -sSL $GlobalMedia_URL | ${{ env.SED }} > ./community/mydata/globalmedia
+          
+      - name: Generate steam
+        env:
+          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+        run: |
+          curl -sSL $Steam_URL | ${{ env.SED }} > ./community/mydata/steam
           
       - name: Build geosite.dat file
         run: |
