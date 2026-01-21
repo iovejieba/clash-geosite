@@ -77,7 +77,6 @@ jobs:
           echo "Gemini_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Gemini.list" >> $GITHUB_ENV
           echo "Discord_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Discord.list" >> $GITHUB_ENV
           echo "TW_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/StreamingTW.list" >> $GITHUB_ENV
-          echo "SSHOR3389_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/ssh.list" >> $GITHUB_ENV
           echo "GUAXIAO_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/guaxiao.list" >> $GITHUB_ENV
           echo "Crypto_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/Crypto.list" >> $GITHUB_ENV
           echo "EMBY_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/Emby.list" >> $GITHUB_ENV
@@ -401,11 +400,6 @@ jobs:
         run: |
           curl -sSL $Wiki_URL | ${{ env.SED }} > ./community/mydata/wiki
           
-      - name: Generate sshor3389
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $SSHOR3389_URL | ${{ env.SED }} > ./community/mydata/sshor3389
           
       - name: Generate guaxiao
         env:
