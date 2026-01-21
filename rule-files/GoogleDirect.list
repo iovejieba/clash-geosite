@@ -1,5 +1,11 @@
 DOMAIN-SUFFIX,265.com
 DOMAIN-SUFFIX,2mdn.net
+DOMAIN-SUFFIX,alt1-mtalk.google.com
+DOMAIN-SUFFIX,alt2-mtalk.google.com
+DOMAIN-SUFFIX,alt3-mtalk.google.com
+DOMAIN-SUFFIX,alt4-mtalk.google.com
+DOMAIN-SUFFIX,alt5-mtalk.google.com
+DOMAIN-SUFFIX,alt6-mtalk.google.com
 DOMAIN-SUFFIX,alt7-mtalk.google.com
 DOMAIN-SUFFIX,alt8-mtalk.google.com
 DOMAIN-SUFFIX,app-measurement.com
@@ -20,6 +26,7 @@ DOMAIN-SUFFIX,dl.l.google.com
 DOMAIN-SUFFIX,googletagmanager.com
 DOMAIN-SUFFIX,googletagservices.com
 DOMAIN-SUFFIX,gtm.oasisfeng.com
+DOMAIN-SUFFIX,mtalk.google.com
 DOMAIN-SUFFIX,ocsp.pki.goog
 DOMAIN-SUFFIX,recaptcha.net
 DOMAIN-SUFFIX,recaptcha-cn.net
@@ -213,7 +220,3 @@ DOMAIN,cdn-china.ampproject.org
 DOMAIN,csi-china.l.google.com
 DOMAIN,static-doubleclick-net.l.google.com
 DOMAIN,safebrowsing-cache.google.com
-DOMAIN,i.pki.goog
-DOMAIN,o.pki.goog
-DOMAIN,c.pki.goog
-DOMAIN,crls.pki.goog

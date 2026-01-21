@@ -47,7 +47,8 @@ DOMAIN-SUFFIX,globalsign.fr
 DOMAIN-SUFFIX,globalsign.nl
 DOMAIN-SUFFIX,phicdn.net
 DOMAIN-SUFFIX,dcocsp.cn
-DOMAIN-SUFFIX,sectigo.com
+DOMAIN-SUFFIX,crt.sectigo.com
+DOMAIN-SUFFIX,ocsp.sectigo.com
 DOMAIN-SUFFIX,ss2.us
 DOMAIN-SUFFIX,amazontrust.com
 DOMAIN-SUFFIX,awstrust.com
@@ -61,4 +62,3 @@ DOMAIN-SUFFIX,trustcor.ca
 DOMAIN-SUFFIX,trustcor.com
 DOMAIN-SUFFIX,trustisfps.com
 IP-CIDR,152.195.38.76/32,no-resolve
-DOMAIN,e3913.cd.akamaiedge.net
