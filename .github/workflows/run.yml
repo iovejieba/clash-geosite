@@ -32,7 +32,7 @@ jobs:
           echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
           echo "APPLE_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/Apple.list" >> $GITHUB_ENV
           echo "APPLEAKAMAI_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/AppleAkamai.list" >> $GITHUB_ENV
-          echo "GOOGLE_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.list" >> $GITHUB_ENV
+          echo "GOOGLE_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/Google.list" >> $GITHUB_ENV
           echo "CN_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/CN.list" >> $GITHUB_ENV
           echo "DIRECT_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Direct.list" >> $GITHUB_ENV
           echo "GOOGLECN_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/GoogleDirect.list" >> $GITHUB_ENV
@@ -41,11 +41,11 @@ jobs:
           echo "BING_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Bing.list" >> $GITHUB_ENV
           echo "MS_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.list" >> $GITHUB_ENV
           echo "MSCN_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/MicrosoftCN.list" >> $GITHUB_ENV
-          echo "NETFLIX_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.list" >> $GITHUB_ENV
-          echo "TG_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.list" >> $GITHUB_ENV
+          echo "NETFLIX_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/Netflix.list" >> $GITHUB_ENV
+          echo "TG_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/Telegram.list" >> $GITHUB_ENV
           echo "SOCIALMEDIA_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/SocialMedia.list" >> $GITHUB_ENV
           echo "HTTPDNS_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/HTTPDNS.list" >> $GITHUB_ENV
-          echo "YOUTUBE_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.list" >> $GITHUB_ENV
+          echo "YOUTUBE_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/YouTube.list" >> $GITHUB_ENV
           echo "ByteDance_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/ByteDance.list" >> $GITHUB_ENV
           echo "TIKTOK_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.list" >> $GITHUB_ENV
           echo "TRACKER_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Tracker.list" >> $GITHUB_ENV
@@ -85,11 +85,11 @@ jobs:
           echo "Copilot_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/Copilot.list" >> $GITHUB_ENV
           echo "Bahamut_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Bahamut/Bahamut.list" >> $GITHUB_ENV
           echo "Cloudflare_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/Cloudflare.list" >> $GITHUB_ENV
-          echo "GoogleFCM_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GoogleFCM/GoogleFCM.list" >> $GITHUB_ENV
+          echo "GoogleFCM_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/GoogleFCM.list" >> $GITHUB_ENV
           echo "ProxyGFWlist_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/ProxyGFWlist.list" >> $GITHUB_ENV
           echo "DMM_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/DMM.list" >> $GITHUB_ENV
-          echo "ChinaMedia_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMedia/ChinaMedia.list" >> $GITHUB_ENV
-          echo "GlobalMedia_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia.list" >> $GITHUB_ENV
+          echo "ChinaMedia_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/ChinaMedia.list" >> $GITHUB_ENV
+          echo "GlobalMedia_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/GlobalMedia.list" >> $GITHUB_ENV
           echo "Steam_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.list" >> $GITHUB_ENV
           echo "ChinaDomain_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/ChinaDomain.list" >> $GITHUB_ENV
         shell: bash
