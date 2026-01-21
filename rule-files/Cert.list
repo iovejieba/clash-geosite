@@ -61,4 +61,3 @@ DOMAIN-SUFFIX,certum.pl
 DOMAIN-SUFFIX,trustcor.ca
 DOMAIN-SUFFIX,trustcor.com
 DOMAIN-SUFFIX,trustisfps.com
-IP-CIDR,152.195.38.76/32,no-resolve
