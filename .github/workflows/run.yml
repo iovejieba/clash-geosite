@@ -1,4 +1,5 @@
 name: Build geosite files
+
 on:
   workflow_dispatch:
   schedule:
@@ -93,7 +94,6 @@ jobs:
           echo "ChinaIp_URL=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaIp.list" >> $GITHUB_ENV
           echo "ChinaDomain_URL=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list" >> $GITHUB_ENV
           echo "ChinaCompanyIp_URL=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaCompanyIp.list" >> $GITHUB_ENV
-        
         shell: bash
 
       - name: Checkout Loyalsoldier/domain-list-custom
@@ -117,394 +117,404 @@ jobs:
 
       - name: Generate apple
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           mkdir -p ./community/mydata
           curl -sSL $APPLE_URL | ${{ env.SED }} > ./community/mydata/apple
 
       - name: Generate appleakamai
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           mkdir -p ./community/mydata
           curl -sSL $APPLEAKAMAI_URL | ${{ env.SED }} > ./community/mydata/appleakamai
 
       - name: Generate discord
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           mkdir -p ./community/mydata
           curl -sSL $Discord_URL | ${{ env.SED }} > ./community/mydata/discord
 
       - name: Generate microsoft
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $MS_URL | ${{ env.SED }} > ./community/mydata/microsoft
 
       - name: Generate uk
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $UK_URL | ${{ env.SED }} > ./community/mydata/uk
 
       - name: Generate jp
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $JP_URL | ${{ env.SED }} > ./community/mydata/jp
 
       - name: Generate media
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Media_URL | ${{ env.SED }} > ./community/mydata/media
 
       - name: Generate microsoftcn
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $MSCN_URL | ${{ env.SED }} > ./community/mydata/microsoftcn
 
       - name: Generate cn
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $CN_URL | ${{ env.SED }} > ./community/mydata/cn
           
       - name: Generate direct
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           mkdir -p ./community/mydata
           curl -sSL $DIRECT_URL | ${{ env.SED }} > ./community/mydata/direct
           
       - name: Generate gemini
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           mkdir -p ./community/mydata
           curl -sSL $Gemini_URL | ${{ env.SED }} > ./community/mydata/gemini
 
       - name: Generate googlecn
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           mkdir -p ./community/mydata
           curl -sSL $GOOGLECN_URL | ${{ env.SED }} > ./community/mydata/googlecn
 
       - name: Generate proxy
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $PROXY_URL | ${{ env.SED }} > ./community/mydata/proxy
           
       - name: Generate google
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $GOOGLE_URL | ${{ env.SED }} > ./community/mydata/google
           
       - name: Generate ai
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $AI_URL | ${{ env.SED }} > ./community/mydata/ai
           
       - name: Generate bing
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $BING_URL | ${{ env.SED }} > ./community/mydata/bing
 
       - name: Generate cert
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Cert_URL | ${{ env.SED }} > ./community/mydata/cert
 
       - name: Generate github
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $GitHub_URL | ${{ env.SED }} > ./community/mydata/github
           
       - name: Generate netflix
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $NETFLIX_URL | ${{ env.SED }} > ./community/mydata/netflix
 
       - name: Generate telegram
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $TG_URL | ${{ env.SED }} > ./community/mydata/telegram
 
       - name: Generate socialmedia
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $SOCIALMEDIA_URL | ${{ env.SED }} > ./community/mydata/socialmedia
 
       - name: Generate twitch
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Twitch_URL | ${{ env.SED }} > ./community/mydata/twitch
 
       - name: Generate disney
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Disney_URL | ${{ env.SED }} > ./community/mydata/disney
 
       - name: Generate huawei
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Huawei_URL | ${{ env.SED }} > ./community/mydata/huawei
 
       - name: Generate httpdns
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $HTTPDNS_URL | ${{ env.SED }} > ./community/mydata/httpdns
 
       - name: Generate youtube
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $YOUTUBE_URL | ${{ env.SED }} > ./community/mydata/youtube
 
       - name: Generate bytedance
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $ByteDance_URL | ${{ env.SED }} > ./community/mydata/bytedance
 
       - name: Generate baidu
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $BD_URL | ${{ env.SED }} > ./community/mydata/baidu
 
       - name: Generate tiktok
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $TIKTOK_URL | ${{ env.SED }} > ./community/mydata/tiktok
 
       - name: Generate tracker
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $TRACKER_URL | ${{ env.SED }} > ./community/mydata/tracker
 
       - name: Generate tencent
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Tencent_URL | ${{ env.SED }} > ./community/mydata/tencent
 
       - name: Generate jd
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $JD_URL | ${{ env.SED }} > ./community/mydata/jd
 
       - name: Generate bilibili
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $BILIBILI_URL | ${{ env.SED }} > ./community/mydata/bilibili
 
       - name: Generate gamecn
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $GameCN_URL | ${{ env.SED }} > ./community/mydata/gamecn
 
       - name: Generate academic
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Academic_URL | ${{ env.SED }} > ./community/mydata/academic
 
       - name: Generate claude
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Claude_URL | ${{ env.SED }} > ./community/mydata/claude
 
       - name: Generate netshare
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $NetShare_URL | ${{ env.SED }} > ./community/mydata/netshare
 
       - name: Generate alibaba
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $ALIBABA_URL | ${{ env.SED }} > ./community/mydata/alibaba
 
       - name: Generate meituan
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $MT_URL | ${{ env.SED }} > ./community/mydata/meituan
 
       - name: Generate reddit
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Reddit_URL | ${{ env.SED }} > ./community/mydata/reddit
 
       - name: Generate spotify
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Spotify_URL | ${{ env.SED }} > ./community/mydata/spotify
 
       - name: Generate talkatone
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Talkatone_URL | ${{ env.SED }} > ./community/mydata/talkatone
 
       - name: Generate meta
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Meta_URL | ${{ env.SED }} > ./community/mydata/meta
 
       - name: Generate xiaomi
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $MI_URL | ${{ env.SED }} > ./community/mydata/xiaomi
 
       - name: Generate twitter
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Twitter_URL | ${{ env.SED }} > ./community/mydata/twitter
 
       - name: Generate tw
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $TW_URL | ${{ env.SED }} > ./community/mydata/tw
 
       - name: Generate wiki
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Wiki_URL | ${{ env.SED }} > ./community/mydata/wiki
           
       - name: Generate sshor3389
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $SSHOR3389_URL | ${{ env.SED }} > ./community/mydata/sshor3389
           
       - name: Generate guaxiao
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $GUAXIAO_URL | ${{ env.SED }} > ./community/mydata/guaxiao
           
       - name: Generate crypto 
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Crypto_URL | ${{ env.SED }} > ./community/mydata/crypto
           
       - name: Generate emby 
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $EMBY_URL | ${{ env.SED }} > ./community/mydata/emby
           
       - name: Generate pt
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $PT_URL | ${{ env.SED }} > ./community/mydata/pt
           
       - name: Generate copilot
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Copilot_URL | ${{ env.SED }} > ./community/mydata/copilot
           
       - name: Generate bahamut
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Bahamut_URL | ${{ env.SED }} > ./community/mydata/bahamut
           
       - name: Generate cloudflare
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Cloudflare_URL | ${{ env.SED }} > ./community/mydata/cloudflare
           
       - name: Generate goolefcm
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $GoogleFCM_URL | ${{ env.SED }} > ./community/mydata/goolefcm
           
       - name: Generate proxygfwlist
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $ProxyGFWlist_URL | ${{ env.SED }} > ./community/mydata/proxygfwlist
           
       - name: Generate dmm
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $DMM_URL | ${{ env.SED }} > ./community/mydata/dmm
           
       - name: Generate chinamedia
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $ChinaMedia_URL | ${{ env.SED }} > ./community/mydata/chinamedia
           
       - name: Generate globalmedia
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $GlobalMedia_URL | ${{ env.SED }} > ./community/mydata/globalmedia
           
       - name: Generate steam
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $Steam_URL | ${{ env.SED }} > ./community/mydata/steam
           
       - name: Generate chinaip
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $ChinaIp_URL | ${{ env.SED }} > ./community/mydata/chinaip
           
       - name: Generate chinadomain
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $ChinaDomain_URL | ${{ env.SED }} > ./community/mydata/chinadomain
           
       - name: Generate chinacompanyip
         env:
-          SED: sed '/^\s*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\s*IP-CIDR/d' | sed '/^\s*IP-CIDR6/d'
+          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
         run: |
           curl -sSL $ChinaCompanyIp_URL | ${{ env.SED }} > ./community/mydata/chinacompanyip
-          
+      
+      # ================== FIX STARTS HERE ==================
+      - name: Force downgrade v2ray-core version
+        run: |
+          cd community
+          echo "Forcing v2ray-core to a compatible version (v5.41.1)..."
+          go get github.com/v2fly/v2ray-core/v5@v5.41.1
+          go mod tidy
+          echo "Downgrade complete."
+      # =================== FIX ENDS HERE ===================
+
       - name: Build geosite.dat file
         run: |
           cd community || exit 1
