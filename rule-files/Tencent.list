@@ -949,7 +949,6 @@ DOMAIN-SUFFIX,qcdntest.com.cn
 DOMAIN-SUFFIX,qcdntest.net
 DOMAIN-SUFFIX,qclivecdn.cn
 DOMAIN-SUFFIX,qclivecdn.com
-DOMAIN-SUFFIX,qcloudcdn.中国
 DOMAIN-SUFFIX,qcloudcdn.com.cn
 DOMAIN-SUFFIX,qcloudcdnsrc.com
 DOMAIN-SUFFIX,qcloudcjgj.cn
@@ -1388,7 +1387,6 @@ DOMAIN-SUFFIX,tqapp.net
 DOMAIN-SUFFIX,tquic.net
 DOMAIN-SUFFIX,tri.cn
 DOMAIN-SUFFIX,trimg.cn
-DOMAIN-SUFFIX,trpc.中国
 DOMAIN-SUFFIX,trpc.center
 DOMAIN-SUFFIX,trpc.group
 DOMAIN-SUFFIX,trpc.tech
