@@ -1,9 +1,8 @@
-name: Build geosite files
-
+name: Build Geosite Ultimate V1.0
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 19 * * *"
+    - cron: "0 0 * * *" # 北京时间每天上午 08:00 运行
   push:
     branches:
       - master
@@ -16,23 +15,13 @@ jobs:
     steps:
       - name: Checkout codebase
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - uses: dev-drprasad/delete-tag-and-release@v1.0
-        with:
-          tag_name: latest
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          delete_release: true
-          repo: iovejieba/clash-geosite
 
       - name: Set variables
         run: |
-          echo "RELEASE_NAME=Released on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
-          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
-          echo "APPLE_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/Apple.list" >> $GITHUB_ENV
+          # 1. 规则订阅地址 (此处为你之前列出的完整列表)
+          echo "APPLE_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.list" >> $GITHUB_ENV
           echo "APPLEAKAMAI_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/AppleAkamai.list" >> $GITHUB_ENV
-          echo "GOOGLE_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/Google.list" >> $GITHUB_ENV
+          echo "GOOGLE_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.list" >> $GITHUB_ENV
           echo "CN_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/CN.list" >> $GITHUB_ENV
           echo "DIRECT_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Direct.list" >> $GITHUB_ENV
           echo "GOOGLECN_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/GoogleDirect.list" >> $GITHUB_ENV
@@ -41,11 +30,11 @@ jobs:
           echo "BING_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Bing.list" >> $GITHUB_ENV
           echo "MS_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.list" >> $GITHUB_ENV
           echo "MSCN_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/MicrosoftCN.list" >> $GITHUB_ENV
-          echo "NETFLIX_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/Netflix.list" >> $GITHUB_ENV
-          echo "TG_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/Telegram.list" >> $GITHUB_ENV
+          echo "NETFLIX_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.list" >> $GITHUB_ENV
+          echo "TG_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.list" >> $GITHUB_ENV
           echo "SOCIALMEDIA_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/SocialMedia.list" >> $GITHUB_ENV
           echo "HTTPDNS_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/HTTPDNS.list" >> $GITHUB_ENV
-          echo "YOUTUBE_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/YouTube.list" >> $GITHUB_ENV
+          echo "YOUTUBE_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.list" >> $GITHUB_ENV
           echo "ByteDance_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/ByteDance.list" >> $GITHUB_ENV
           echo "TIKTOK_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/TikTok/TikTok.list" >> $GITHUB_ENV
           echo "TRACKER_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Tracker.list" >> $GITHUB_ENV
@@ -73,31 +62,30 @@ jobs:
           echo "Media_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Media.list" >> $GITHUB_ENV
           echo "UK_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/StreamingUK.list" >> $GITHUB_ENV
           echo "JP_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/StreamingJP.list" >> $GITHUB_ENV
-          echo "MI_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/XiaoMi.list" >> $GITHUB_ENV
+          echo "MI_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/XiaoMi/XiaoMi.list" >> $GITHUB_ENV
           echo "Gemini_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Gemini.list" >> $GITHUB_ENV
           echo "Discord_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/Discord.list" >> $GITHUB_ENV
           echo "TW_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/StreamingTW.list" >> $GITHUB_ENV
+          echo "SSHOR3389_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/ssh.list" >> $GITHUB_ENV
           echo "GUAXIAO_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/guaxiao.list" >> $GITHUB_ENV
           echo "Crypto_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/Crypto.list" >> $GITHUB_ENV
           echo "EMBY_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/Emby.list" >> $GITHUB_ENV
           echo "PT_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/PrivateTracker.list" >> $GITHUB_ENV
-          echo "Copilot_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/Copilot.list" >> $GITHUB_ENV
+          echo "Copilot_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Copilot/Copilot.list" >> $GITHUB_ENV
           echo "Bahamut_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Bahamut/Bahamut.list" >> $GITHUB_ENV
           echo "Cloudflare_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/Cloudflare.list" >> $GITHUB_ENV
-          echo "GoogleFCM_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/GoogleFCM.list" >> $GITHUB_ENV
+          echo "GoogleFCM_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GoogleFCM/GoogleFCM.list" >> $GITHUB_ENV
           echo "ProxyGFWlist_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/ProxyGFWlist.list" >> $GITHUB_ENV
           echo "DMM_URL=https://raw.githubusercontent.com/iovejieba/clash/refs/heads/main/DMM.list" >> $GITHUB_ENV
-          echo "ChinaMedia_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/ChinaMedia.list" >> $GITHUB_ENV
-          echo "GlobalMedia_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/GlobalMedia.list" >> $GITHUB_ENV
+          echo "ChinaMedia_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMedia/ChinaMedia.list" >> $GITHUB_ENV
+          echo "GlobalMedia_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia.list" >> $GITHUB_ENV
           echo "Steam_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Steam/Steam.list" >> $GITHUB_ENV
-          echo "ChinaDomain_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/refs/heads/master/rule-files/ChinaDomain.list" >> $GITHUB_ENV
-        shell: bash
-
-      - name: Checkout Loyalsoldier/domain-list-custom
-        uses: actions/checkout@v4
-        with:
-          repository: Loyalsoldier/domain-list-custom
-          path: custom
+          echo "ChinaIp_URL=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaIp.list" >> $GITHUB_ENV
+          echo "ChinaDomain_URL=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list" >> $GITHUB_ENV
+          echo "ChinaCompanyIp_URL=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaCompanyIp.list" >> $GITHUB_ENV
+          
+          # 2. 定义 Release 显示名称
+          echo "RELEASE_NAME=Released on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
 
       - name: Checkout v2fly/domain-list-community
         uses: actions/checkout@v4
@@ -109,414 +97,41 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: 'stable'
-          check-latest: true
-          cache-dependency-path: ./custom/go.sum
 
-      - name: Generate apple
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
+      - name: Generate and Translate Rules
         run: |
           mkdir -p ./community/mydata
-          curl -sSL $APPLE_URL | ${{ env.SED }} > ./community/mydata/apple
-
-      - name: Generate appleakamai
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          mkdir -p ./community/mydata
-          curl -sSL $APPLEAKAMAI_URL | ${{ env.SED }} > ./community/mydata/appleakamai
-
-      - name: Generate discord
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          mkdir -p ./community/mydata
-          curl -sSL $Discord_URL | ${{ env.SED }} > ./community/mydata/discord
-
-      - name: Generate microsoft
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $MS_URL | ${{ env.SED }} > ./community/mydata/microsoft
-
-      - name: Generate uk
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $UK_URL | ${{ env.SED }} > ./community/mydata/uk
-
-      - name: Generate jp
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $JP_URL | ${{ env.SED }} > ./community/mydata/jp
-
-      - name: Generate media
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Media_URL | ${{ env.SED }} > ./community/mydata/media
-
-      - name: Generate microsoftcn
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $MSCN_URL | ${{ env.SED }} > ./community/mydata/microsoftcn
-
-      - name: Generate cn
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $CN_URL | ${{ env.SED }} > ./community/mydata/cn
+          # 核心翻译逻辑：白名单过滤域名指令并清洗
+          CLEAN_CMD="sed -E -n '/^DOMAIN(-SUFFIX|-KEYWORD|-FULL)?,/ { s/^DOMAIN-SUFFIX,//; s/^(DOMAIN|DOMAIN-FULL),/full:/; s/^DOMAIN-KEYWORD,/keyword:/; s/,.*//; p }'"
           
-      - name: Generate direct
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          mkdir -p ./community/mydata
-          curl -sSL $DIRECT_URL | ${{ env.SED }} > ./community/mydata/direct
-          
-      - name: Generate gemini
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          mkdir -p ./community/mydata
-          curl -sSL $Gemini_URL | ${{ env.SED }} > ./community/mydata/gemini
-
-      - name: Generate googlecn
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          mkdir -p ./community/mydata
-          curl -sSL $GOOGLECN_URL | ${{ env.SED }} > ./community/mydata/googlecn
-
-      - name: Generate proxy
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $PROXY_URL | ${{ env.SED }} > ./community/mydata/proxy
-          
-      - name: Generate google
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $GOOGLE_URL | ${{ env.SED }} > ./community/mydata/google
-          
-      - name: Generate ai
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $AI_URL | ${{ env.SED }} > ./community/mydata/ai
-          
-      - name: Generate bing
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $BING_URL | ${{ env.SED }} > ./community/mydata/bing
-
-      - name: Generate cert
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Cert_URL | ${{ env.SED }} > ./community/mydata/cert
-
-      - name: Generate github
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $GitHub_URL | ${{ env.SED }} > ./community/mydata/github
-          
-      - name: Generate netflix
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $NETFLIX_URL | ${{ env.SED }} > ./community/mydata/netflix
-
-      - name: Generate telegram
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $TG_URL | ${{ env.SED }} > ./community/mydata/telegram
-
-      - name: Generate socialmedia
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $SOCIALMEDIA_URL | ${{ env.SED }} > ./community/mydata/socialmedia
-
-      - name: Generate twitch
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Twitch_URL | ${{ env.SED }} > ./community/mydata/twitch
-
-      - name: Generate disney
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Disney_URL | ${{ env.SED }} > ./community/mydata/disney
-
-      - name: Generate huawei
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Huawei_URL | ${{ env.SED }} > ./community/mydata/huawei
-
-      - name: Generate httpdns
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $HTTPDNS_URL | ${{ env.SED }} > ./community/mydata/httpdns
-
-      - name: Generate youtube
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $YOUTUBE_URL | ${{ env.SED }} > ./community/mydata/youtube
-
-      - name: Generate bytedance
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $ByteDance_URL | ${{ env.SED }} > ./community/mydata/bytedance
-
-      - name: Generate baidu
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $BD_URL | ${{ env.SED }} > ./community/mydata/baidu
-
-      - name: Generate tiktok
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $TIKTOK_URL | ${{ env.SED }} > ./community/mydata/tiktok
-
-      - name: Generate tracker
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $TRACKER_URL | ${{ env.SED }} > ./community/mydata/tracker
-
-      - name: Generate tencent
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Tencent_URL | ${{ env.SED }} > ./community/mydata/tencent
-
-      - name: Generate jd
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $JD_URL | ${{ env.SED }} > ./community/mydata/jd
-
-      - name: Generate bilibili
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $BILIBILI_URL | ${{ env.SED }} > ./community/mydata/bilibili
-
-      - name: Generate gamecn
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $GameCN_URL | ${{ env.SED }} > ./community/mydata/gamecn
-
-      - name: Generate academic
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Academic_URL | ${{ env.SED }} > ./community/mydata/academic
-
-      - name: Generate claude
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Claude_URL | ${{ env.SED }} > ./community/mydata/claude
-
-      - name: Generate netshare
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $NetShare_URL | ${{ env.SED }} > ./community/mydata/netshare
-
-      - name: Generate alibaba
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $ALIBABA_URL | ${{ env.SED }} > ./community/mydata/alibaba
-
-      - name: Generate meituan
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $MT_URL | ${{ env.SED }} > ./community/mydata/meituan
-
-      - name: Generate reddit
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Reddit_URL | ${{ env.SED }} > ./community/mydata/reddit
-
-      - name: Generate spotify
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Spotify_URL | ${{ env.SED }} > ./community/mydata/spotify
-
-      - name: Generate talkatone
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Talkatone_URL | ${{ env.SED }} > ./community/mydata/talkatone
-
-      - name: Generate meta
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Meta_URL | ${{ env.SED }} > ./community/mydata/meta
-
-      - name: Generate xiaomi
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $MI_URL | ${{ env.SED }} > ./community/mydata/xiaomi
-
-      - name: Generate twitter
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Twitter_URL | ${{ env.SED }} > ./community/mydata/twitter
-
-      - name: Generate tw
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $TW_URL | ${{ env.SED }} > ./community/mydata/tw
-
-      - name: Generate wiki
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Wiki_URL | ${{ env.SED }} > ./community/mydata/wiki
-          
-          
-      - name: Generate guaxiao
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $GUAXIAO_URL | ${{ env.SED }} > ./community/mydata/guaxiao
-          
-      - name: Generate crypto 
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Crypto_URL | ${{ env.SED }} > ./community/mydata/crypto
-          
-      - name: Generate emby 
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $EMBY_URL | ${{ env.SED }} > ./community/mydata/emby
-          
-      - name: Generate pt
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $PT_URL | ${{ env.SED }} > ./community/mydata/pt
-          
-      - name: Generate copilot
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Copilot_URL | ${{ env.SED }} > ./community/mydata/copilot
-          
-      - name: Generate bahamut
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Bahamut_URL | ${{ env.SED }} > ./community/mydata/bahamut
-          
-      - name: Generate cloudflare
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Cloudflare_URL | ${{ env.SED }} > ./community/mydata/cloudflare
-          
-      - name: Generate goolefcm
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $GoogleFCM_URL | ${{ env.SED }} > ./community/mydata/goolefcm
-          
-      - name: Generate proxygfwlist
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $ProxyGFWlist_URL | ${{ env.SED }} > ./community/mydata/proxygfwlist
-          
-      - name: Generate dmm
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $DMM_URL | ${{ env.SED }} > ./community/mydata/dmm
-          
-      - name: Generate chinamedia
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $ChinaMedia_URL | ${{ env.SED }} > ./community/mydata/chinamedia
-          
-      - name: Generate globalmedia
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $GlobalMedia_URL | ${{ env.SED }} > ./community/mydata/globalmedia
-          
-      - name: Generate steam
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $Steam_URL | ${{ env.SED }} > ./community/mydata/steam
-          
-          
-      - name: Generate chinadomain
-        env:
-          SED: sed '/^\\s\*#/d' | sed '/^PROCESS-NAME,/d' | sed 's/DOMAIN,/full:/g' | sed 's/DOMAIN-SUFFIX,//g' | sed 's/DOMAIN-KEYWORD,/keyword:/g' | sed '/^\\s\*IP-CIDR/d' | sed '/^\\s\*IP-CIDR6/d'
-        run: |
-          curl -sSL $ChinaDomain_URL | ${{ env.SED }} > ./community/mydata/chinadomain
-          
-
-      
-      # ================== FIX STARTS HERE ==================
-      - name: Force downgrade v2ray-core version
-        run: |
-          cd community
-          echo "Forcing v2ray-core to a compatible version (v5.41.0)..."
-          go get github.com/v2fly/v2ray-core/v5@v5.41.0
-          go mod tidy
-          echo "Downgrade complete."
-      # =================== FIX ENDS HERE ===================
+          # 【隔离更新】排除名为 GITHUB 的内置变量，彻底根治 403 报错
+          for var in $(env | grep '_URL=' | grep -v "GITHUB" | cut -d= -f1); do
+            url="${!var}"
+            filename=$(echo "${var%_URL}" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]//g')
+            
+            echo "Translating $filename from $url ..."
+            # 下载并执行逻辑翻译
+            curl -sSLf "$url" | eval "$CLEAN_CMD" | sed '/[^\x00-\x7F]/d; /^$/d' | sort -u > "./community/mydata/$filename"
+          done
 
       - name: Build geosite.dat file
         run: |
           cd community || exit 1
+          # env -i 用于编译时的子进程真空环境
+          env -i PATH="$PATH" GOPATH="$(go env GOPATH)" GOCACHE="$(go env GOCACHE)" \
           go run ./ --datapath=./mydata --outputname geosite.dat
-          cp -fpPR ./mydata ./publish
 
-      - name: Build geosite.db file
-        env:
-          NO_SKIP: true
+      - name: Build geosite.db file (Sing-box)
         run: |
-          go install -trimpath -ldflags="-s -w -buildid=" github.com/metacubex/geo/cmd/geo@master
-          geo convert site -i v2ray -o sing -f geosite.db ./community/geosite.dat
+          go install -trimpath -ldflags="-s -w" github.com/metacubex/geo/cmd/geo@master
+          $(go env GOPATH)/bin/geo convert site -i v2ray -o sing -f geosite.db ./community/geosite.dat
 
-      - name: Move files
+      - name: Prepare Assets
         run: |
-          rm -rf ./tmp
-          install -Dp ./community/geosite.dat ./publish/geosite.dat
-          install -Dp ./geosite.db ./publish/geosite.db
-          cd ./publish || exit 1
+          mkdir -p ./publish
+          cp -fp ./community/geosite.dat ./publish/geosite.dat
+          cp -fp ./geosite.db ./publish/geosite.db
+          cd ./publish
           sha256sum geosite.dat > geosite.dat.sha256sum
           sha256sum geosite.db > geosite.db.sha256sum
 
@@ -524,10 +139,11 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          release_name: latest
+          release_name: ${{ env.RELEASE_NAME }}
           tag: latest
           file_glob: true
           file: ./publish/*
+          overwrite: true
 
       - name: Git push assets to "release" branch
         run: |
