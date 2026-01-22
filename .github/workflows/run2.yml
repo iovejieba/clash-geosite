@@ -2,7 +2,7 @@ name: Build Geosite Ultimate V1.0
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 19 * * *"
+    - cron: "0 0 * * *" # UTC 0:00，即北京时间每天上午 08:00
   push:
     branches:
       - master
@@ -18,7 +18,7 @@ jobs:
 
       - name: Set variables
         run: |
-          # 1. 定义规则订阅地址
+          # 1. 维护规则订阅
           echo "APPLE_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.list" >> $GITHUB_ENV
           echo "APPLEAKAMAI_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/AppleAkamai.list" >> $GITHUB_ENV
           echo "GOOGLE_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.list" >> $GITHUB_ENV
@@ -83,11 +83,9 @@ jobs:
           echo "ChinaIp_URL=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaIp.list" >> $GITHUB_ENV
           echo "ChinaDomain_URL=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list" >> $GITHUB_ENV
           echo "ChinaCompanyIp_URL=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaCompanyIp.list" >> $GITHUB_ENV
-
           
-          # 2. 补全你默认的两个系统变量
+          # 2. 定义 Release 动态名称
           echo "RELEASE_NAME=Released on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
-          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
 
       - name: Checkout v2fly/domain-list-community
         uses: actions/checkout@v4
@@ -103,10 +101,9 @@ jobs:
       - name: Generate and Translate Rules
         run: |
           mkdir -p ./community/mydata
-          # 翻译逻辑：精准映射 Clash 到 V2Ray 格式
+          # 核心翻译逻辑：精准对齐 Clash -> V2Ray 格式
           CLEAN_CMD="sed -E -n '/^DOMAIN(-SUFFIX|-KEYWORD|-FULL)?,/ { s/^DOMAIN-SUFFIX,//; s/^(DOMAIN|DOMAIN-FULL),/full:/; s/^DOMAIN-KEYWORD,/keyword:/; s/,.*//; p }'"
           
-          # 遍历所有 _URL 变量，忽略 RELEASE_NAME 和 TAG_NAME
           for var in $(env | grep '_URL=' | cut -d= -f1); do
             url="${!var}"
             filename=$(echo "${var%_URL}" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]//g')
@@ -117,7 +114,7 @@ jobs:
       - name: Build geosite.dat file
         run: |
           cd community || exit 1
-          # 使用 env -i 屏蔽 RELEASE_NAME/TAG_NAME 等变量，防止编译器误读报错
+          # 使用 env -i 屏蔽环境变量，彻底解决 GITHUB_API 等报错
           env -i PATH="$PATH" GOPATH="$(go env GOPATH)" GOCACHE="$(go env GOCACHE)" \
           go run ./ --datapath=./mydata --outputname geosite.dat
 
@@ -140,7 +137,7 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           release_name: ${{ env.RELEASE_NAME }}
-          tag: ${{ env.TAG_NAME }}
+          tag: latest
           file_glob: true
           file: ./publish/*
           overwrite: true
