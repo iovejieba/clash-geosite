@@ -2,7 +2,7 @@ name: Build Geosite Ultimate V1.0
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 * * *" # 北京时间每天上午 08:00 自动运行
   push:
     branches:
       - master
@@ -18,7 +18,7 @@ jobs:
 
       - name: Set variables
         run: |
-          # 1. 规则订阅列表 (保留你所有的变量)
+          # 1. 规则订阅列表
           echo "APPLE_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.list" >> $GITHUB_ENV
           echo "APPLEAKAMAI_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/AppleAkamai.list" >> $GITHUB_ENV
           echo "GOOGLE_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.list" >> $GITHUB_ENV
@@ -96,13 +96,14 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: 'stable'
+          cache: false # 彻底解决 Restore cache failed 警告
 
       - name: Generate and Translate Rules
         run: |
           mkdir -p ./community/mydata
           CLEAN_CMD="sed -E -n '/^DOMAIN(-SUFFIX|-KEYWORD|-FULL)?,/ { s/^DOMAIN-SUFFIX,//; s/^(DOMAIN|DOMAIN-FULL),/full:/; s/^DOMAIN-KEYWORD,/keyword:/; s/,.*//; p }'"
           
-          # 【修正逻辑】改用精确排除，只过滤掉会产生 403 的系统环境变量名
+          # 精确排除导致 403 的系统变量，确保不误伤 GitHub_URL
           for var in $(env | grep '_URL=' | grep -Ev "GITHUB_GRAPHQL_URL|GITHUB_API_URL" | cut -d= -f1); do
             url="${!var}"
             filename=$(echo "${var%_URL}" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]//g')
