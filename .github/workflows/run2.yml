@@ -18,9 +18,7 @@ jobs:
 
       - name: Set variables
         run: |
-          # 在此区域维护你的规则订阅地址
-          echo "RELEASE_NAME=Released on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
-          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          # 1. 定义规则订阅地址
           echo "APPLE_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.list" >> $GITHUB_ENV
           echo "APPLEAKAMAI_URL=https://raw.githubusercontent.com/iovejieba/clash-geosite/master/rule-files/AppleAkamai.list" >> $GITHUB_ENV
           echo "GOOGLE_URL=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.list" >> $GITHUB_ENV
@@ -86,6 +84,11 @@ jobs:
           echo "ChinaDomain_URL=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list" >> $GITHUB_ENV
           echo "ChinaCompanyIp_URL=https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaCompanyIp.list" >> $GITHUB_ENV
 
+          
+          # 2. 补全你默认的两个系统变量
+          echo "RELEASE_NAME=Released on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+
       - name: Checkout v2fly/domain-list-community
         uses: actions/checkout@v4
         with:
@@ -100,17 +103,13 @@ jobs:
       - name: Generate and Translate Rules
         run: |
           mkdir -p ./community/mydata
-          
-          # 核心翻译逻辑：
-          # DOMAIN-SUFFIX -> 默认(后缀匹配)
-          # DOMAIN/DOMAIN-FULL -> full: (精确匹配)
-          # DOMAIN-KEYWORD -> keyword: (关键字匹配)
-          # 过滤非域名行，剔除非ASCII字符，物理去重排序
+          # 翻译逻辑：精准映射 Clash 到 V2Ray 格式
           CLEAN_CMD="sed -E -n '/^DOMAIN(-SUFFIX|-KEYWORD|-FULL)?,/ { s/^DOMAIN-SUFFIX,//; s/^(DOMAIN|DOMAIN-FULL),/full:/; s/^DOMAIN-KEYWORD,/keyword:/; s/,.*//; p }'"
           
+          # 遍历所有 _URL 变量，忽略 RELEASE_NAME 和 TAG_NAME
           for var in $(env | grep '_URL=' | cut -d= -f1); do
             url="${!var}"
-            filename=$(echo "${var%_URL}" | tr '[:upper:]' '[:lower:]')
+            filename=$(echo "${var%_URL}" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]//g')
             echo "Translating $filename ..."
             curl -sSLf "$url" | eval "$CLEAN_CMD" | sed '/[^\x00-\x7F]/d; /^$/d' | sort -u > "./community/mydata/$filename"
           done
@@ -118,6 +117,8 @@ jobs:
       - name: Build geosite.dat file
         run: |
           cd community || exit 1
+          # 使用 env -i 屏蔽 RELEASE_NAME/TAG_NAME 等变量，防止编译器误读报错
+          env -i PATH="$PATH" GOPATH="$(go env GOPATH)" GOCACHE="$(go env GOCACHE)" \
           go run ./ --datapath=./mydata --outputname geosite.dat
 
       - name: Build geosite.db file (Sing-box)
@@ -138,8 +139,8 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          release_name: latest
-          tag: latest
+          release_name: ${{ env.RELEASE_NAME }}
+          tag: ${{ env.TAG_NAME }}
           file_glob: true
           file: ./publish/*
           overwrite: true
@@ -152,6 +153,6 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b release
           git add .
-          git commit -m "Auto Build $(date +'%Y-%m-%d %H:%M')"
+          git commit -m "${{ env.RELEASE_NAME }}"
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git push -f -u origin release
