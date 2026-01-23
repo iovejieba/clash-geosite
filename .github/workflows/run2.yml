@@ -104,7 +104,7 @@ jobs:
           # CLEAN_CMD="sed -E -n '/^DOMAIN(-SUFFIX|-KEYWORD|-FULL)?,/ { s/^DOMAIN-SUFFIX,//; s/^(DOMAIN|DOMAIN-FULL),/full:/; s/^DOMAIN-KEYWORD,/keyword:/; s/,.*//; p }'"
           CLEAN_CMD="awk -F, '{
             gsub(/[ \t\r]/, \"\", \$0); # 去空格和回车
-            if (\$0 ~ /^#|^$/) next;    # 跳过注释和空行
+            if (\$0 ~ /^#/ || \$0 == \"\") next; # 2. 核心修复：只要开头是#或者空行，直接跳过，不管后面写什么
             if (\$1 == \"DOMAIN-SUFFIX\") { print \$2 }
             else if (\$1 == \"DOMAIN\" || \$1 == \"DOMAIN-FULL\") { print \"full:\" \$2 }
             else if (\$1 == \"DOMAIN-KEYWORD\") { print \"keyword:\" \$2 }
