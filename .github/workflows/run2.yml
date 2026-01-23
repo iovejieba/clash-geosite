@@ -109,7 +109,7 @@ jobs:
             else if (\$1 == \"DOMAIN\" || \$1 == \"DOMAIN-FULL\") { print \"full:\" \$2 }
             else if (\$1 == \"DOMAIN-KEYWORD\") { print \"keyword:\" \$2 }
             else if (NF == 1) { print \$1 } # 如果整行没逗号，当作普通域名处理
-            else if (\$1 !~ /IP-CIDR|USER-AGENT|PROCESS-NAME/) { print \$1 } # 排除掉IP等无关规则，剩下的尝试保留
+            else if (\$1 !~ /IP-CIDR|IP-CIDR6|IP-ASN|USER-AGENT|PROCESS-NAME/) { print \$1 } # 排除掉IP等无关规则，剩下的尝试保留
             }'"
           # 精确排除导致 403 的系统变量，确保不误伤 GitHub_URL
           for var in $(env | grep '_URL=' | grep -v "GITHUB_" | cut -d= -f1); do
